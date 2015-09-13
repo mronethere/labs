@@ -1,0 +1,20 @@
+package core
+
+import akka.actor.{Props, ActorSystem}
+import akka.io.IO
+import akka.pattern.ask
+import akka.util.Timeout
+import api.ApplicationActor
+import spray.can.Http
+
+import scala.concurrent.duration._
+
+object Boot extends App {
+
+  implicit val system = ActorSystem("labs")
+  implicit val timeout = Timeout(5.seconds)
+
+  val application = system.actorOf(Props[ApplicationActor], "app-service")
+
+  IO(Http) ? Http.Bind(application, interface = "localhost", port = 8080)
+}

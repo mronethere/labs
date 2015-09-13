@@ -4,8 +4,8 @@
 
     require.config({
         paths: {
-            "angular": "./bower_components/angular/angular",
-            "ngBootstrap": "./bower_components/angular-bootstrap/ui-bootstrap-tpls"
+            "angular": "/bower_components/angular/angular",
+            "ngBootstrap": "/bower_components/angular-bootstrap/ui-bootstrap-tpls"
         },
         shim: {
             "angular": { exports: "angular" },

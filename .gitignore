@@ -1,4 +1,3 @@
-/public/bower_components
 /activator-launch-1.3.5.jar
 /activator.bat
 /activator
@@ -7,6 +6,7 @@ target
 /.idea
 /.idea_modules
 /.classpath
+/src/main/resources/bower_components
 /.project
 /.settings
 /RUNNING_PID
