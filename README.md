@@ -2,4 +2,4 @@
 
 This repo contains labs that are solved by me.
 
-Feel free to use it in any purpose =)
+Feel free to use it for any purpose =)
