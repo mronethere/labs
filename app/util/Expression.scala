@@ -2,37 +2,26 @@ package util
 
 import javax.script.ScriptEngineManager
 
+import scala.util.{Failure, Success, Try}
+
 /**
  * Representing scala expression
- *
- * @param expr expression
- * @param params parameters
  */
-class Expression(expr: String, params: List[String]) {
+class Expression() {
 
-  val engine = Expression.scalaEngineFactory
+  private val engine = new ScriptEngineManager().getEngineByName("scala")
+  private val settings = engine.asInstanceOf[scala.tools.nsc.interpreter.IMain].settings
+  settings.embeddedDefaults[Expression]
+  settings.usejavacp.value = true
 
-  /**
-   * Evaluates the expression `expr`
-   *
-   * @param vars - valued params
-   * @return result of expression
-   */
-  def eval(vars: Any*): Any = {
-    require(params.size == vars.size, "wrong params count")
-    (params zip vars) foreach {
-      case (param, value) => engine.put(param, value)
-    }
-    engine.eval(expr)
+
+  def eval(expr: String, vars: Any*): Try[AnyRef] = Try {
+    null
   }
 
 
 }
 
-object Expression {
-
-  lazy val SupportedTypes = List("int", "double")
-
-  def scalaEngineFactory = new ScriptEngineManager().getEngineByName("scala")
+object Expression extends App {
 
 }
