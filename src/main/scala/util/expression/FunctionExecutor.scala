@@ -34,6 +34,11 @@ class FunctionExecutor(func: String, args: Seq[String]) {
    */
   def eval(values: Seq[String]): Try[Any] = Try(evalUnsafe(values))
 
+  /**
+   * Converts function executor to valid scala function
+   *
+   * @return Double => Double
+   */
   def toFunctionDoubleToDouble = new Function[Double, Double] {
     require(args.size < 1, "not enough arguments")
     require(args.size > 1, "too many arguments")
