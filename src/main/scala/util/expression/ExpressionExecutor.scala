@@ -4,24 +4,12 @@ import scala.util.Try
 
 /**
  * Scala expression executor
- *
- * @param expr expression
- * @param params parameters
  */
-case class ExpressionExecutor(expr: String, params: Seq[String]) {
-  private val engine = new ScalaEngine().engine
+class ExpressionExecutor {
 
-  /**
-   * Evaluates `expr` by replacing `params` to given `values`
-   *
-   * @param values values
-   * @return Try of expression result, obviously this may fail
-   */
-  def eval(values: Seq[String]): Try[Any] = Try {
-    require(params.size == values.size, "wrong params count")
-    (params zip values) foreach {
-      case (param, value) => engine.put(param, value)
-    }
+  private val engine = new ScalaScriptEngine().engine
+
+  def eval(expr: String): Try[Any] = Try {
     engine.eval(expr)
   }
 }
