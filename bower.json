@@ -1,0 +1,11 @@
+{
+  "name": "labs",
+  "version": "1.0-SNAPSHOT",
+  "dependencies": {
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "angular": "latest",
+    "angular-bootstrap": "latest",
+    "requirejs": "latest"
+  }
+}

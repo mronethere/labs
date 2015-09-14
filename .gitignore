@@ -1,0 +1,12 @@
+/activator-launch-1.3.5.jar
+/activator.bat
+/activator
+logs
+target
+/.idea
+/.idea_modules
+/.classpath
+/src/main/resources/bower_components
+/.project
+/.settings
+/RUNNING_PID
