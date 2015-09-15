@@ -16,5 +16,5 @@ object Boot extends App {
 
   val application = system.actorOf(Props[ApplicationActor], "app-service")
 
-  IO(Http) ? Http.Bind(application, interface = "localhost", port = 8080)
+  IO(Http) ? Http.Bind(application, interface = "localhost", port = 9000)
 }
