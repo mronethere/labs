@@ -2,10 +2,13 @@ package util.expression
 
 import scala.util.Try
 
+/**
+ * Function executor
+ */
+class FunctionExecutor(func: String, args: Seq[String],
+                       scriptEngine: ScriptEngineCustom = new ScalaScriptEngine()) {
 
-class FunctionExecutor(func: String, args: Seq[String]) {
-
-  private val engine = new ScalaScriptEngine().engine
+  private val engine = scriptEngine.engine
 
   /**
    * Substitutes `args` by `values` in `func` and executes it.

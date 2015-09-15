@@ -3,11 +3,11 @@ package util.expression
 import scala.util.Try
 
 /**
- * Scala expression executor
+ * Expression executor
  */
-class ExpressionExecutor {
+class ExpressionExecutor(scriptEngine: ScriptEngineCustom = new ScalaScriptEngine()) {
 
-  private val engine = new ScalaScriptEngine().engine
+  private val engine = scriptEngine.engine
 
   def eval(expr: String): Try[Any] = Try {
     engine.eval(expr)
