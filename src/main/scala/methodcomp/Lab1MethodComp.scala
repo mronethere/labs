@@ -21,8 +21,8 @@ object Lab1MethodComp {
         val (_a, _b) = if (fun(a) * fun(x) < 0) (a, x) else (x, b)
         iter(_a, _b, (a + b) / 2)
       }
-      iter(a, b, (a + b) / 2)
     }
+    iter(a, b, (a + b) / 2)
   }
 
   case class InputData(e: Double, swap: Boolean, fun: String, funD: String, a: Double, b: Double)
