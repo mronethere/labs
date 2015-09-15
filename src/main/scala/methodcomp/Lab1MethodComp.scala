@@ -3,7 +3,9 @@ package methodcomp
 import util.expression.FunctionExecutor
 
 import scala.concurrent.Future
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Try
+
 import Math._
 
 object Lab1MethodComp {
