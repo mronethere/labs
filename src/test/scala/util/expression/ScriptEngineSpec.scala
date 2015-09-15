@@ -16,6 +16,8 @@ class ScriptEngineSpec extends Specification {
     "executes simple expressions" in {
       ee.eval("1 + 1") mustEqual Try(2)
       ee.eval("List(1, 2, 3, 4, 5).filter(_ % 2 == 0).size") mustEqual Try(2)
+    }
+    "handle errors" in {
       ee.eval("no compilable code").isFailure must beTrue
     }
   }
