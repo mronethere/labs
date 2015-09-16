@@ -57,11 +57,9 @@ class FunctionExecutor(func: String, args: Seq[String],
    * @return Double => Double
    */
   def toFunctionDoubleToDouble = new Function[Double, Double] {
-    require(args.size < 1, "not enough arguments")
-    require(args.size > 1, "too many arguments")
+    require(args.size == 1, "wrong count of arguments")
     override def apply(x: Double): Double = {
-      engine.put(args.head, x)
-      engine.eval(func).asInstanceOf[Double]
+      evalUnsafe(List(x)).asInstanceOf[Double]
     }
   }
 }
