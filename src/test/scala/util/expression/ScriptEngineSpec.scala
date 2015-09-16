@@ -22,4 +22,21 @@ class ScriptEngineSpec extends Specification {
       ee.eval("weird code").isFailure must beTrue
     }
   }
+
+  "FunctionExecutor" should {
+    "eval simple math expr" in {
+      val fe = new FunctionExecutor("sqrt(4) - round(1.9)", Nil, new ScalaScriptEngineMock)
+      fe.eval(Nil) mustEqual Try(0)
+    }
+    "substitute args" in {
+      val fe = new FunctionExecutor("sqrt(x) - round(y)", List("x", "y"), new ScalaScriptEngineMock)
+      fe.eval(List(4, 1.9)) mustEqual Try(0)
+    }
+    "converts to scala (Double => Double)" in {
+      val fe = new FunctionExecutor("sqrt(x) + pow(2, x)", List("x"), new ScalaScriptEngineMock)
+      val func = fe.toFunctionDoubleToDouble
+      func(1) mustEqual 3
+      func(4) mustNotEqual 1
+    }
+  }
 }
