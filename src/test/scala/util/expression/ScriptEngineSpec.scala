@@ -12,13 +12,14 @@ class ScriptEngineSpec extends Specification {
   }
 
   "ExpressionExecutor" should {
-    val ee = new ExpressionExecutor(new ScalaScriptEngineMock)
     "executes simple expressions" in {
+      val ee = new ExpressionExecutor(new ScalaScriptEngineMock)
       ee.eval("1 + 1") mustEqual Try(2)
       ee.eval("List(1, 2, 3, 4, 5).filter(_ % 2 == 0).size") mustEqual Try(2)
     }
     "handle errors" in {
-      ee.eval("no compilable code").isFailure must beTrue
+      val ee = new ExpressionExecutor(new ScalaScriptEngineMock)
+      ee.eval("weird code").isFailure must beTrue
     }
   }
 }

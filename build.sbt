@@ -26,4 +26,6 @@ scalacOptions in Test ++= Seq("-Yrangepos")
 
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
+fork in test := true
+
 Revolver.settings
