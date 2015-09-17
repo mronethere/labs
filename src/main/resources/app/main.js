@@ -3,11 +3,12 @@
     'use strict';
 
     define([
-            '/app/main/ContainerController'
-        ], function (ContainerController) {
+            '/app/main/ContainerController',
+            '/app/methodcomp/MethodCompModule'
+        ], function (ContainerController, MethodCompModule) {
             var appName = 'labs';
             angular
-                .module(appName, ['ui.router', 'ui.bootstrap'])
+                .module(appName, ['ui.router', 'ui.bootstrap', MethodCompModule])
                 .controller("ContainerController", ContainerController)
                 .config(function ($stateProvider, $urlRouterProvider) {
                     $urlRouterProvider.otherwise('/home');
@@ -16,20 +17,9 @@
                         .state('home', {
                             url: '/home',
                             templateUrl: '/app/home.view.html'
-                        })
-                        .state('methodcomp', {
-                            url: '/methodcomp',
-                            templateUrl: '/app/methodcomp/views/methodcomp.view.html'
-                        })
-                        .state('methodcomp_labs', {
-                            url: '/methodcomp/lab/:labid',
-                            templateUrl: function ($stateParams, $state){
-                                console.dir($state);
-                                return '/app/methodcomp/views/lab' + $stateParams.labid + '.view.html'
-                            }
-                        })
+                        });
                 });
             return appName;
         }
     );
-})(window.define, window.angular);
+})(define, angular);
