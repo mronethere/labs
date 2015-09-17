@@ -1,27 +1,33 @@
 (function (define, angular) {
 
-    "use strict";
+    'use strict';
 
-    define([], function () {
-            var appName = "labs";
+    define([
+            '/app/main/ContainerController'
+        ], function (ContainerController) {
+            var appName = 'labs';
             angular
-                .module(appName, ["ui.router", "ui.bootstrap"])
-                .config(function ($stateProvider, $urlRouterProvider, $stateParams) {
-                    $urlRouterProvider.otherwise("/home");
+                .module(appName, ['ui.router', 'ui.bootstrap'])
+                .controller("ContainerController", ContainerController)
+                .config(function ($stateProvider, $urlRouterProvider) {
+                    $urlRouterProvider.otherwise('/home');
 
                     $stateProvider
-                        .state("home", {
-                            url: "/home",
-                            templateUrl: "/app/main.view.html"
+                        .state('home', {
+                            url: '/home',
+                            templateUrl: '/app/home.view.html'
                         })
-                        .state("methodcomp", {
-                            url: "/methodcomp",
-                            templateUrl: "/app/methodcomp/methodcomp.view.html"
+                        .state('methodcomp', {
+                            url: '/methodcomp',
+                            templateUrl: '/app/methodcomp/views/methodcomp.view.html'
                         })
-                        .state("methodcomp.lab", {
-                            url: "/methodcomp/lab/:lab_id",
-                            templateUrl: "/app/methodcomp/lab" + $stateParams.lab_id + ".view.html"
-                        });
+                        .state('methodcomp_labs', {
+                            url: '/methodcomp/lab/:labid',
+                            templateUrl: function ($stateParams, $state){
+                                console.dir($state);
+                                return '/app/methodcomp/views/lab' + $stateParams.labid + '.view.html'
+                            }
+                        })
                 });
             return appName;
         }
