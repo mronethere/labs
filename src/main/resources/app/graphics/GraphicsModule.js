@@ -5,21 +5,21 @@
     define([],
         function () {
 
-            var moduleName = 'MethodComp';
+            var moduleName = 'Graphics';
 
             angular
                 .module(moduleName, [])
                 .config(function ($stateProvider) {
 
                     $stateProvider
-                        .state('methodcomp', {
-                            url: '/methodcomp',
-                            templateUrl: '/app/methodcomp/views/methodcomp.view.html'
+                        .state('graphics', {
+                            url: '/graphics',
+                            templateUrl: '/app/graphics/views/graphics.view.html'
                         })
-                        .state('methodcomp_labs', {
-                            url: '/methodcomp/:labid',
+                        .state('graphics_labs', {
+                            url: '/graphics/:labid',
                             templateUrl: function ($stateParams){
-                                return '/app/methodcomp/views/lab' + $stateParams.labid + '.view.html'
+                                return '/app/graphics/views/lab' + $stateParams.labid + '.view.html'
                             }
                         })
                 });

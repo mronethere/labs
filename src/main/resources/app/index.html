@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-default">
+    <nav class="navbar navbar-default" ng-controller="ContainerController as container">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" ui-sref="home">Головна</a>
@@ -21,13 +21,13 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li ng-class="{active: ('methodcomp' | includedByState)}"><a ui-sref="methodcomp">Методи обчислень</a></li>
+                    <li ng-class="{active: ('graphics' | includedByState)}"><a ui-sref="graphics">Компютерна граіка</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="dropdown" dropdown>
                         <a href="#" class="dropdown-toggle" dropdown-toggle>Lab № <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Lab 1</a></li>
-                            <li><a href="#">Lab 2</a></li>
+                            <li><a href="{{ link }}" ng-repeat="link in container.labLinks()">Lab 1</a></li>
                         </ul>
                     </li>
                 </ul>

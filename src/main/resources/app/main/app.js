@@ -3,20 +3,21 @@
     'use strict';
 
     define([
-            '/app/main/ContainerController',
-            '/app/methodcomp/MethodCompModule'
-        ], function (ContainerController, MethodCompModule) {
+            './ContainerController',
+            '../methodcomp/MethodCompModule',
+            '../graphics/GraphicsModule'
+        ], function (ContainerController, MethodCompModule, GraphicsModule) {
             var appName = 'labs';
             angular
-                .module(appName, ['ui.router', 'ui.bootstrap', MethodCompModule])
-                .controller("ContainerController", ContainerController)
+                .module(appName, ['ui.router', 'ui.bootstrap', MethodCompModule, GraphicsModule])
+                .controller('ContainerController', ContainerController)
                 .config(function ($stateProvider, $urlRouterProvider) {
                     $urlRouterProvider.otherwise('/home');
 
                     $stateProvider
                         .state('home', {
                             url: '/home',
-                            templateUrl: '/app/home.view.html'
+                            templateUrl: '/app/main/home.view.html'
                         });
                 });
             return appName;
