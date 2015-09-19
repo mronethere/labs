@@ -17,4 +17,10 @@ object Boot extends App {
   val application = system.actorOf(Props[ApplicationActor], "app-service")
 
   IO(Http) ? Http.Bind(application, interface = "localhost", port = 9000)
+
+  /*import game._
+  Utils.shapes.foreach { shape =>
+    println(s"--------\n$shape ->")
+    shape.opts.foreach(Utils.printShape)
+  }*/
 }
