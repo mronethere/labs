@@ -17,9 +17,9 @@
 
 
     define(["angular", "ngBootstrap", "uiRouter"], function (angular) {
-        require(["main"], function (app) {
+        require(["main/app"], function (app) {
             angular.bootstrap(document.getElementsByTagName("body")[0], [app]);
         });
     });
 
-})(window.define, window.require);
+})(define, require);
