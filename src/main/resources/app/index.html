@@ -13,7 +13,7 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-default" ng-controller="ContainerController as container">
+    <nav class="navbar navbar-default" ng-controller="MenuController as menu">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" ui-sref="home">Головна</a>
@@ -27,7 +27,7 @@
                     <li class="dropdown" dropdown>
                         <a href="#" class="dropdown-toggle" dropdown-toggle>Lab № <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ link }}" ng-repeat="link in container.labLinks()">Lab 1</a></li>
+                            <li><a href="{{link}}" ng-repeat="link in menu[menu.state.current.name]">Lab {{ link }}</a></li>
                         </ul>
                     </li>
                 </ul>
