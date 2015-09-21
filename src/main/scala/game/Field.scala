@@ -4,18 +4,24 @@ import scala.annotation.tailrec
 
 
 class Field(val size: Int, val matrix: List[List[Int]]) {
-  def insert(point: Point): Field = {
-    val before = matrix.take(point.x)
-    val line = matrix(point.x)
-    val newLine = line.take(point.y) ++ (point.token :: line.drop(point.y + 1))
-    val after = matrix.drop(point.x + 1)
-    new Field(0, before ++ (newLine :: after))
+  def insert(point: Point): Option[Field] = {
+    if (point.x >= matrix.size || point.y >= matrix.size || point.x < 0 || point.y < 0) None
+    else {
+      val (beforeLines, afterLines) = matrix.splitAt(point.x)
+      val line = afterLines.head
+      val (beforePoints, afterPoints) = line.splitAt(point.y)
+      if (afterPoints.head != 0) None
+      else {
+        val newLine = beforePoints ++ (point.token :: afterPoints.tail)
+        Some(Field(beforeLines ++ (newLine :: afterLines.tail)))
+      }
+    }
   }
-  def insert(points: List[Point]): Field = {
-    @tailrec def rez(points: List[Point], acc: Field): Field =
-      if (points.isEmpty) acc
-      else rez(points.tail, acc.insert(points.head))
-    rez(points, this)
+  def insert(points: List[Point]): Option[Field] = {
+    @tailrec def rez(points: List[Point], acc: Option[Field]): Option[Field] =
+      if (points.isEmpty || acc.isEmpty) acc
+      else rez(points.tail, acc.flatMap(_.insert(points.head)))
+    rez(points, Some(this))
   }
 }
 

@@ -25,8 +25,16 @@ object Utils {
     val chars = ('a' to 'z').filter(_ != 'o').toList
     (0 until (chars.size + 1)) zip ('o' :: chars)
   }
-  def tokenize(x: Int) = if (x >= tokens.size) "." else tokens(x).toString()
+  def tokenize(x: Int) = if (x >= tokens.size) "." else tokens(x)._2.toString
 
   def moveRight(points: List[Point]): List[Point] = points.map(p => Point(p.x, p.y + 1, p.token))
   def moveDown(points: List[Point]): List[Point] = points.map(p => Point(p.x + 1, p.y, p.token))
+
+  /*def solve(field: Field, shapes: List[Shape]):Set[List[List[Point]]] = {
+    if (field.isFull) Set(List(List()))
+    else for {
+      solutions <- solve()
+    }
+  }*/
+
 }
