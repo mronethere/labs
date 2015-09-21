@@ -21,6 +21,7 @@
                         for (var i = 1; i <= menu[prop]; i++) {
                             this[prop].push('#/' + prop + '/' + i);
                         }
+                        this[prop + '_labs'] = this[prop];
                     }
                     console.dir(this);
                 }])

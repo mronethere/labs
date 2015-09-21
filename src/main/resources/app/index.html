@@ -27,7 +27,7 @@
                     <li class="dropdown" dropdown>
                         <a href="#" class="dropdown-toggle" dropdown-toggle>Lab № <span class="caret"></span></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{link}}" ng-repeat="link in menu[menu.state.current.name]">Lab {{ link }}</a></li>
+                            <li><a href="{{link}}" ng-repeat="link in menu[menu.state.current.name]">Lab {{ $index + 1 }}</a></li>
                         </ul>
                     </li>
                 </ul>
