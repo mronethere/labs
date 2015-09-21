@@ -192,8 +192,8 @@ case class Brown() extends Shape {
 }
 
 /** 13
- *         x
- *   x x x x
+ *         x   x
+ *   x x x x   x x x x
  */
 case class Red() extends Shape {
   val opts = List (
