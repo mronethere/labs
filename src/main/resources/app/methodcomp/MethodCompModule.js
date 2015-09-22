@@ -2,13 +2,16 @@
 
     'use strict';
 
-    define([],
-        function () {
+    define([
+            './controller/Lab2Controller'
+        ],
+        function (Lab2Controller) {
 
             var moduleName = 'MethodComp';
 
             angular
                 .module(moduleName, [])
+                .controller('Lab2Controller', Lab2Controller)
                 .config(function ($stateProvider) {
                     $stateProvider
                         .state('methodcomp', {

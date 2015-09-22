@@ -11,7 +11,7 @@ object Lab2MethodComp extends LabController {
   def solve(data: LabData): Future[List[String]] = Future {
     val expression = createScript(data.params.head, data.params(1),
       data.params(2), data.params(3), data.params(4))
-    List(new ExpressionExecutor().eval(expression).asInstanceOf[String])
+    List(new ExpressionExecutor().eval(expression).toString)
   }
 
   //TODO I got an idea, to pull it via reflection or through classloader

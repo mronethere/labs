@@ -1,0 +1,38 @@
+<h2 class="page-tittle">Лабораторна робота №2</h2>
+<div class="well">
+    <h4>Чисельні методи розв’язання нелінійних рівнянь на ПК</h4>
+    <form ng-controller="Lab2Controller as lab">
+        <div class="row">
+            <div class="form-group col-xs-2">
+                <label for="epsi">Епсилон</label>
+                <input type="number" ng-model="lab.E" class="form-control" id="epsi">
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="swap">Тип</label>
+                <select ng-model='lab.swap' class="form-control" id="swap">
+                    <option value="false">f' * f'' > 0</option>
+                    <option value="true">f' * f'' < 0</option>
+                </select>
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="laneA">Від</label>
+                <input type="number" ng-model="lab.A" class="form-control" id="laneA">
+            </div>
+            <div class="form-group col-xs-2">
+                <label for="laneB">До</label>
+                <input type="number" ng-model="lab.B"  class="form-control" id="laneB">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-xs-6">
+                <label for="func">Функція</label>
+                <input type="text" ng-model="lab.func" class="form-control" id="func">
+            </div>
+            <div class="form-group col-xs-6">
+                <label for="rez">Результат</label>
+                <input type="text" ng-model="lab.rez" class="form-control" id="rez" readonly>
+            </div>
+        </div>
+        <a ng-click="lab.submit()" class="btn btn-default" id="calc">Обчислити</a>
+    </form>
+</div>
