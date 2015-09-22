@@ -1,12 +1,18 @@
 package api
 
 import spray.routing.{HttpService, HttpServiceActor}
+import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
+import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
+import spray.json.DefaultJsonProtocol
+
 
 class ApplicationActor extends HttpServiceActor with ApplicationAPI {
   def receive = runRoute(routes)
 }
 
-trait ApplicationAPI extends HttpService {
+trait ApplicationAPI extends HttpService with DefaultJsonProtocol {
+
+  implicit val labDataFormat = jsonFormat3(LabData)
 
   val index = pathEndOrSingleSlash {
     get {
@@ -22,6 +28,17 @@ trait ApplicationAPI extends HttpService {
       getFromResourceDirectory("bower_components")
     }
 
-  val routes = index ~ statics
+  val labs =
+    path("lab") {
+      post {
+        entity(as[LabData]) { labData =>
+          val rez = List(s"$labData.projectName && $labData.labId")
+          complete(LabData(labData.projectName, labData.labId, rez))
+        }
+      }
+    }
+
+  val routes = index ~ statics ~ labs
 }
 
+case class LabData(projectName: String, labId: Int, params: List[String])
