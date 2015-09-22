@@ -5,6 +5,10 @@ import spray.httpx.SprayJsonSupport.sprayJsonMarshaller
 import spray.httpx.SprayJsonSupport.sprayJsonUnmarshaller
 import spray.json.DefaultJsonProtocol
 
+import core.Boot.system.dispatcher
+
+import scala.util.Success
+
 
 class ApplicationActor extends HttpServiceActor with ApplicationAPI {
   def receive = runRoute(routes)
@@ -12,7 +16,7 @@ class ApplicationActor extends HttpServiceActor with ApplicationAPI {
 
 trait ApplicationAPI extends HttpService with DefaultJsonProtocol {
 
-  implicit val labDataFormat = jsonFormat3(LabData)
+  implicit val labDataFormat = jsonFormat4(LabData)
 
   val index = pathEndOrSingleSlash {
     get {
@@ -32,8 +36,7 @@ trait ApplicationAPI extends HttpService with DefaultJsonProtocol {
     path("lab") {
       post {
         entity(as[LabData]) { labData =>
-          val rez = List(s"$labData.projectName && $labData.labId")
-          complete(LabData(labData.projectName, labData.labId, rez))
+          onSuccess(LabManager.solveLab(labData))(complete(_))
         }
       }
     }
@@ -41,4 +44,4 @@ trait ApplicationAPI extends HttpService with DefaultJsonProtocol {
   val routes = index ~ statics ~ labs
 }
 
-case class LabData(projectName: String, labId: Int, params: List[String])
+case class LabData(projectName: String, labId: Int, params: List[String], isSuccess: Boolean)
