@@ -11,19 +11,22 @@
                 .module(appName, ['ui.router', 'ui.bootstrap', MethodCompModule, GraphicsModule])
                 .controller('MenuController', ['$state', function ($state) {
                     this.state = $state;
-                    console.log($state);
                     var menu = {
                         methodcomp: 2,
-                        graphics: 0
+                        graphics: 2
                     };
                     for (var prop in menu) {
                         this[prop] = [];
                         for (var i = 1; i <= menu[prop]; i++) {
                             this[prop].push('#/' + prop + '/' + i);
                         }
-                        this[prop + '_labs'] = this[prop];
                     }
-                    console.dir(this);
+                    this.navClick = function (state) {
+                        if (sessionStorage.getItem(state) == null) {
+                            sessionStorage.setItem(state, 0);
+                        }
+                        return this[state][sessionStorage.getItem(state)];
+                    }
                 }])
                 .config(function ($stateProvider, $urlRouterProvider) {
                     $urlRouterProvider.otherwise('/home');
