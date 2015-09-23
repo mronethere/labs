@@ -3,7 +3,7 @@
     'use strict';
 
     define([
-            './controller/Lab2Controller'
+            './controllers/Lab2Controller'
         ],
         function (Lab2Controller) {
 
