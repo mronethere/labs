@@ -10,3 +10,10 @@ body {
 .page-tittle {
     padding-left: 10px;
 }
+
+canvas {
+    border: 1px solid #b25216;
+    padding: 0;
+    margin: auto;
+    display: block;
+}

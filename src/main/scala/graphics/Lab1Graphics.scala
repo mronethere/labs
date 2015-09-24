@@ -1,6 +1,8 @@
 package graphics
 
 import api.{LabController, LabData}
+import core.Boot.system.dispatcher
+
 import Math._
 import scala.concurrent.Future
 

@@ -2,13 +2,16 @@
 
     'use strict';
 
-    define([],
-        function () {
+    define([
+            './controllers/Lab1Controller'
+        ],
+        function (Lab1Controller) {
 
             var moduleName = 'Graphics';
 
             angular
                 .module(moduleName, [])
+                .controller('Lab1Controller', Lab1Controller)
                 .config(function ($stateProvider) {
                     $stateProvider
                         .state('graphics', {

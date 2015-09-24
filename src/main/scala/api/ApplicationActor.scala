@@ -7,8 +7,6 @@ import spray.json.DefaultJsonProtocol
 
 import core.Boot.system.dispatcher
 
-import scala.util.Success
-
 
 class ApplicationActor extends HttpServiceActor with ApplicationAPI {
   def receive = runRoute(routes)
