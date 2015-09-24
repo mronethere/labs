@@ -1,11 +1,14 @@
 package api
 
+import graphics._
 import methodcomp._
 
-import scala.concurrent.{TimeoutException, Future}
-import scala.concurrent.duration._
 import core.Boot.system
 import core.Boot.system._
+
+import scala.concurrent.Future
+import scala.concurrent.duration._
+
 import akka.pattern.after
 
 object LabManager {
@@ -24,7 +27,8 @@ object LabManager {
   //TODO use macros for injection
   val labs: Map[(String, String), LabController] = Map(
     ("methodcomp", "1") -> Lab1MethodComp,
-    ("methodcomp", "2") -> Lab2MethodComp
+    ("methodcomp", "2") -> Lab2MethodComp,
+    ("graphics", "1") -> Lab1Graphics
   )
 }
 
