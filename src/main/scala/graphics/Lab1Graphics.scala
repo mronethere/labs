@@ -9,11 +9,11 @@ import scala.concurrent.Future
 object Lab1Graphics extends LabController {
   def solve(data: LabData): Future[List[String]] = Future {
     val params = data.params.take(4).map(_.toInt)
-    buildLines(params.head, params(1), params(2), params(3))
+    buildPoints(params.head, params(1), params(2), params(3))
       .flatMap(xy => List(xy._1.toString, xy._2.toString))
   }
 
-  def buildLines(x1: Int, y1: Int, x2: Int, y2: Int): List[(Int, Int)] = {
+  def buildPoints(x1: Int, y1: Int, x2: Int, y2: Int): List[(Int, Int)] = {
     val L = max(abs(y2 - y1), abs(x2 - x1))
     val (dx, dy) = ((x2 - x1) * 1.0 / L, (y2 - y1) * 1.0 / L)
     val (x, y) = (x1 + 0.5 * sign(dx), y1 + 0.5 * sign(dy))

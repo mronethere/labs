@@ -3,12 +3,14 @@
     'use strict';
 
     define([
+            './LabService',
             '../methodcomp/MethodCompModule',
             '../graphics/GraphicsModule'
-        ], function (MethodCompModule, GraphicsModule) {
+        ], function ($labs, MethodCompModule, GraphicsModule) {
             var appName = 'labs';
             angular
                 .module(appName, ['ui.router', 'ui.bootstrap', MethodCompModule, GraphicsModule])
+                .factory('$labs', $labs)
                 .controller('MenuController', ['$state', function ($state) {
                     this.state = $state;
                     var menu = {
