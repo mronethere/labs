@@ -14,6 +14,7 @@ libraryDependencies ++= {
     "org.scala-lang"      % "scala-compiler"  % scalaVersion.value,
     "io.spray"            %%  "spray-can"     % sprayV,
     "io.spray"            %%  "spray-routing" % sprayV,
+    "io.spray"            %%  "spray-client"  % sprayV,
     "io.spray"            %%  "spray-json"    % "1.3.2",
     "io.spray"            %%  "spray-testkit" % sprayV  % "test" exclude("org.specs2", "specs2_2.11"),
     "com.typesafe.akka"   %%  "akka-actor"    % akkaV,
@@ -24,6 +25,8 @@ libraryDependencies ++= {
 
 scalacOptions := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
 scalacOptions in Test ++= Seq("-Yrangepos")
+
+resolvers += "spray repo" at "http://repo.spray.io"
 
 ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 
