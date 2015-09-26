@@ -6,7 +6,7 @@ import methodcomp._
 import core.Boot.system
 import core.Boot.system._
 
-import scala.concurrent.Future
+import scala.concurrent.{TimeoutException, Future}
 import scala.concurrent.duration._
 
 import akka.pattern.after
@@ -14,7 +14,7 @@ import akka.pattern.after
 object LabManager {
 
   def solveLab(data: LabData): Future[LabData] = {
-    val timeout = after(5.second, using = system.scheduler)(Future.failed(new Error("Timeout exception")))
+    val timeout = after(5.second, using = system.scheduler)(Future.failed(new TimeoutException("Timeout exception")))
     val result = labs(data.projectName, data.labId.toString).solve(data).map {
       case list => LabData(data.projectName, data.labId, list, isSuccess = true)
     }
