@@ -20,7 +20,7 @@
                         return $http
                             .post('/lab', labData).then(function (response) {
                                 if (response.data['isSuccess'] == false) {
-                                    console.log('unsuccessful request: ' + response)
+                                    console.log('unsuccessful request: ' + response.data.params)
                                 }
                                 return response.data;
                             });
