@@ -1,5 +1,5 @@
 import sbt.Keys._
-import spray.revolver.RevolverPlugin.Revolver
+import spray.revolver.RevolverPlugin._
 
 name          := "labs"
 
@@ -33,3 +33,5 @@ ivyScala := ivyScala.value map { _.copy(overrideScalaVersion = true) }
 fork in test := true
 
 Revolver.settings
+Revolver.reStartArgs := Seq("-unchecked", "-deprecation", "-encoding", "utf8")
+//Revolver.enableDebugging(port = 5050, suspend = true)
