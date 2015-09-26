@@ -1,12 +1,22 @@
 package methodcomp
 
 import api.{LabController, LabData}
+import core.Boot.system
 import core.Boot.system.dispatcher
+import spray.client.pipelining._
+import spray.httpx.unmarshalling._
+import spray.http._
+import spray.util._
 
-
-import scala.concurrent.{Future}
+import scala.concurrent.{Await, Future}
+import scala.concurrent.duration._
+import scala.xml.NodeSeq
 
 object Lab3MethodComp extends LabController {
+
+  val pipeline: HttpRequest => Future[HttpResponse] = sendReceive
+
+  implicit val nodeSeqUnmarshaller = Unmarshaller.forNonEmpty[NodeSeq]
 
   def solve(data: LabData): Future[List[String]] = {
     val n = data.params.head.toInt // n-matrix
@@ -38,5 +48,23 @@ object GaussianMethod {
   }
 }
 
+object CramerMethod {
+  import Lab3MethodComp._
 
+  def findDeterminant(matrix: List[List[Double]]): Double = {
+    val res = pipeline(Get(s"http://api.wolframalpha.com/v2/query?" +
+      s"input=determinant+${toQueryParam(matrix)}&appid=UGX5QJ-2LH58RLT7X")) map {
+      case response => response.entity.as[NodeSeq].get(0).child(3).child(1).child(1).text.toDouble
+    }
+    Await.result(res, 5.seconds)
+  }
+
+
+  def solve(matrix: List[List[Double]]): List[Double] = {
+    ???
+  }
+  def toQueryParam(matrix: List[List[Double]]): String = {
+    matrix.map(_.mkString("{", ",", "}")).mkString("{", ",", "}")
+  }
+}
 
