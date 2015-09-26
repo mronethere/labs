@@ -21,25 +21,26 @@ object Lab3MethodComp extends LabController {
   def solve(data: LabData): Future[List[String]] = {
     val n = data.params.head.toInt // n-matrix
     require(data.params.size == (n*n + n + 1), s"matrix isn't quadratic")
-    GaussianMethod.solve(data.params.grouped(n + 1).toList.map(_.map(_.toDouble))).map(_.map(_.toString))
+    //GaussianMethod.solve(data.params.grouped(n + 1).toList.map(_.map(_.toDouble))).map(_.map(_.toString))
+    null
   }
 }
 
 object GaussianMethod {
-  def solve(matrix: List[List[Double]]): Future[List[Double]] = {
+  def solve(matrix: List[List[Double]]): List[Double] = {
     val size = matrix.size
     def iter(matrix: List[List[Double]], lineNum: Int): List[List[Double]] = {
       if (lineNum == size) matrix
       else iter(transform(matrix, lineNum), lineNum + 1)
     }
-    Future(iter(matrix, 0).map(_.last))
+    iter(matrix, 0).map(_.last)
   }
 
   def transform(matrix: List[List[Double]], lineNum: Int): List[List[Double]] = {
     val (taken, dropped) = matrix.splitAt(lineNum)
     val x = dropped.head(lineNum)
     val newLine = dropped.head.map(_ / x)
-    subLines(taken, newLine, lineNum) ++ (newLine :: subLines(dropped.tail, newLine, lineNum))
+    subLines(taken, newLine, lineNum) ++ (newLine :: subLines(dropped.drop(1), newLine, lineNum))
   }
 
   def subLines(matrix: List[List[Double]], mainLine: List[Double], lineNum: Int) = matrix map { line =>
@@ -60,9 +61,20 @@ object CramerMethod {
   }
 
 
-  def solve(matrix: List[List[Double]]): List[Double] = {
-    ???
+  def solve(matrix: List[List[Double]]): (Boolean, List[String]) = {
+    val quadratic = matrix.map(_.init)
+    val mainDet = findDeterminant(quadratic)
+    val vector = matrix.map(_.last)
+    val transposed = quadratic.transpose
+    val dets = (for {
+      i <- transposed.indices
+      (before, after) = transposed.splitAt(i)
+    } yield before ++ (vector :: after.drop(1))) map findDeterminant
+    if (mainDet != 0) {
+      (true, dets.map(x => (x / mainDet).toString).toList)
+    } else (false, List(if(dets.exists(_ != 0)) "no" else "any"))
   }
+
   def toQueryParam(matrix: List[List[Double]]): String = {
     matrix.map(_.mkString("{", ",", "}")).mkString("{", ",", "}")
   }
