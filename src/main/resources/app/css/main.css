@@ -17,3 +17,14 @@ canvas {
     margin: auto;
     display: block;
 }
+
+.margin-left-15 {
+    margin-left: 15px;
+}
+
+.matrix-cell {
+    width: 50px !important;
+    height: 50px !important;
+    margin: 5px;
+    text-align: center;
+}
