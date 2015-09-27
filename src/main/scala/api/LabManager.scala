@@ -28,6 +28,7 @@ object LabManager {
   val labs: Map[(String, String), LabController] = Map(
     ("methodcomp", "1") -> Lab1MethodComp,
     ("methodcomp", "2") -> Lab2MethodComp,
+    ("methodcomp", "3") -> Lab3MethodComp,
     ("graphics", "1") -> Lab1Graphics
   )
 }

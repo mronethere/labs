@@ -18,22 +18,28 @@ object Lab3MethodComp extends LabController {
 
   implicit val nodeSeqUnmarshaller = Unmarshaller.forNonEmpty[NodeSeq]
 
-  def solve(data: LabData): Future[List[String]] = {
+  def solve(data: LabData): Future[List[String]] = Future {
     val n = data.params.head.toInt // n-matrix
     require(data.params.size == (n*n + n + 1), s"matrix isn't quadratic")
-    //GaussianMethod.solve(data.params.grouped(n + 1).toList.map(_.map(_.toDouble))).map(_.map(_.toString))
-    null
+    val matrix = data.params.grouped(n + 1).toList.map(_.map(_.toDouble))
+    val quadratic = matrix.map(_.init)
+    val vector = matrix.map(_.last)
+    val gaussian = GaussianMethod.solve(matrix).map(_.toString)
+    val cramer = CramerMethod.solve(quadratic, vector)
+    val inverse = InverseMatrixMethod.solve(quadratic, vector).map(_.toString)
+    ("gaussian" :: gaussian) ++ ("cramer"  :: cramer._2) ++ ("inverse" :: inverse)
+  }
+
+  def iter(matrix: List[List[Double]], lineNum: Int, size: Int): List[List[Double]] = {
+    if (lineNum == size) matrix
+    else iter(GaussianMethod.transform(matrix, lineNum), lineNum + 1, size)
   }
 }
 
 object GaussianMethod {
   def solve(matrix: List[List[Double]]): List[Double] = {
     val size = matrix.size
-    def iter(matrix: List[List[Double]], lineNum: Int): List[List[Double]] = {
-      if (lineNum == size) matrix
-      else iter(transform(matrix, lineNum), lineNum + 1)
-    }
-    iter(matrix, 0).map(_.last)
+    Lab3MethodComp.iter(matrix, 0, size).map(_.last)
   }
 
   def transform(matrix: List[List[Double]], lineNum: Int): List[List[Double]] = {
@@ -60,11 +66,8 @@ object CramerMethod {
     Await.result(res, 5.seconds)
   }
 
-
-  def solve(matrix: List[List[Double]]): (Boolean, List[String]) = {
-    val quadratic = matrix.map(_.init)
+  def solve(quadratic: List[List[Double]], vector: List[Double]): (Boolean, List[String]) = {
     val mainDet = findDeterminant(quadratic)
-    val vector = matrix.map(_.last)
     val transposed = quadratic.transpose
     val dets = (for {
       i <- transposed.indices
@@ -80,3 +83,29 @@ object CramerMethod {
   }
 }
 
+object InverseMatrixMethod {
+
+  def solve(quadratic: List[List[Double]], vector: List[Double]) = {
+    val size = vector.size
+    val identic = identical(size)
+    val concat = quadratic zip identic map (lines => lines._1 ++ lines._2)
+    val transformed = Lab3MethodComp.iter(concat, 0, size)
+    val inversed = transformed.map(_.drop(size))
+    multiply(inversed, vector)
+  }
+
+  def multiply(matrix: List[List[Double]], vector: List[Double]) = {
+    matrix.map(line => (line zip vector).map(ab => ab._1 * ab._2).sum)
+  }
+
+  // rewrite this sometime
+  def identical(size: Int): List[List[Double]] = {
+    val matrix = new Array[Double](size).map(x => new Array[Double](size))
+    var i = 0
+    while (i < size) {
+      matrix(i).update(i, 1.0)
+      i += 1
+    }
+    matrix.map(_.toList).toList
+  }
+}
