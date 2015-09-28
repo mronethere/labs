@@ -19,7 +19,7 @@ object LabManager {
       case list => LabData(data.projectName, data.labId, list, isSuccess = true)
     }
     Future firstCompletedOf Seq(timeout, result) recover {
-      case e => LabData(data.projectName, data.labId, List(e.getMessage), isSuccess = false)
+      case e => LabData(data.projectName, data.labId, List(s"${e.getClass.toString}: ${e.getMessage}"), isSuccess = false)
     }
   }
 
