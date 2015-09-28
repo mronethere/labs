@@ -21,7 +21,7 @@ object Lab3MethodComp extends LabController {
   def solve(data: LabData): Future[List[String]] = Future {
     val n = data.params.head.toInt // n-matrix
     require(data.params.size == (n*n + n + 1), s"matrix isn't quadratic")
-    val matrix = data.params.grouped(n + 1).toList.map(_.map(_.toDouble))
+    val matrix = data.params.tail.grouped(n + 1).toList.map(_.map(_.toDouble))
     val quadratic = matrix.map(_.init)
     val vector = matrix.map(_.last)
     val gaussian = GaussianMethod.solve(matrix).map(_.toString)
