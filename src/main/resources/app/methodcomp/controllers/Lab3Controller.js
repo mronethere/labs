@@ -23,20 +23,21 @@
                             if (data['isSuccess']) {
                                 var arr = data['params'];
                                 var i = 0;
+                                // don't look at the code below, this is disgusting!
                                 if (arr[i] = 'gaussian') {
                                     var rez = "";
                                     while (arr[++i] != 'cramer' && i < 100) {
-                                        rez += arr[i] + ", ";
+                                        rez += Math.round(arr[i] * 1000) / 1000 + ", ";
                                     }
                                     lab.result1 = rez;
                                     rez = "";
                                     while (arr[++i] != 'inverse' && i < 100) {
-                                        rez += arr[i] + ", ";
+                                        rez += Math.round(arr[i] * 1000) / 1000 + ", ";
                                     }
                                     lab.result2 = rez;
                                     rez = "";
                                     while (++i < arr.length) {
-                                        rez += arr[i] + ", ";
+                                        rez += Math.round(arr[i] * 1000) / 1000 + ", ";
                                     }
                                     lab.result3 = rez;
                                 }
