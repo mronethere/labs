@@ -11,3 +11,4 @@ target
 /.settings
 /src/R/.Rproj.user
 /RUNNING_PID
+.Rproj.user

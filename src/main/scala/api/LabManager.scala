@@ -14,7 +14,7 @@ import akka.pattern.after
 object LabManager {
 
   def solveLab(data: LabData): Future[LabData] = {
-    val timeout = after(5.second, using = system.scheduler)(Future.failed(new TimeoutException("Timeout exception")))
+    val timeout = after(45.second, using = system.scheduler)(Future.failed(new TimeoutException("Timeout exception")))
     val result = labs(data.projectName, data.labId.toString).solve(data).map {
       case list => LabData(data.projectName, data.labId, list, isSuccess = true)
     }
