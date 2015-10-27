@@ -7,21 +7,35 @@
         function () {
             var Lab1Controller = function ($labs) {
                 var controller = this;
-                var canvas = document.getElementById("field");
-                var ctx = canvas.getContext("2d");
-                canvas.width = document.getElementById("lab2g").offsetWidth * 0.9;
-                canvas.height = 400;
+                var width = document.getElementById('ctrl').offsetWidth * 0.9;
+                var height = 400;
+                var canvas = document.getElementById('field');
+                var ctx = canvas.getContext('2d');
+                canvas.width = width;
+                canvas.height = height;
+                var dx = width / 2;
+                var dy = height / 2;
+                init();
+                controller.num = 1;
 
                 this.submit = function() {
                     $labs.process('graphics', 1, [
+                        controller.num,
                         controller.x1, controller.y1,
                         controller.x2, controller.y2
                     ]).then(function (data) {
                         if (data['isSuccess'] && data['params'].length % 2 == 0) {
+                            var i;
                             var points = data.params;
-                            for (var i = 0; i < points.length; i+=2) {
-                                drawPoint(points[i], points[i+1]);
+                            var arr = [];
+                            for (i = 0; i < points.length; i+=2) {
+                                drawPoint(parseInt(points[i]), parseInt(points[i+1]), arr);
                             }
+                            var rez = '';
+                            for (i = arr.length - 1; i >= 0; i--) {
+                                rez += '(' + arr[i].x + ',' + arr[i].y + ') ';
+                            }
+                            console.log(rez);
                         } else {
                             console.dir(data);
                         }
@@ -29,11 +43,24 @@
                 };
 
                 this.reset = function() {
-                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.clearRect(0, 0, width, height);
+                    init();
                 };
 
-                function drawPoint(x, y) {
-                    ctx.fillRect(x, y, 1, 1);
+                this.setNum = function(n) {
+                    controller.num = n;
+                };
+
+                function init() {
+                    ctx.fillStyle='#FF0000';
+                    ctx.fillRect(width / 2, 0, 1, height);
+                    ctx.fillRect(0, height / 2, width, 1);
+                    ctx.fillStyle='#000000';
+                }
+
+                function drawPoint(x, y, arr) {
+                    arr.push({'x' : x, 'y': y});
+                    ctx.fillRect(x + dx, dy - y, 1, 1);
                 }
             };
             return ['$labs', Lab1Controller];
