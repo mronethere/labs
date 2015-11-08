@@ -3,15 +3,17 @@
     'use strict';
 
     define([
-            './controllers/Lab1Controller'
+            './controllers/Lab1Controller',
+            './controllers/Lab3Controller'
         ],
-        function (Lab1Controller) {
+        function (Lab1Controller, Lab3Controller) {
 
             var moduleName = 'Graphics';
 
             angular
                 .module(moduleName, [])
                 .controller('Lab1Controller', Lab1Controller)
+                .controller('Lab3Controller', Lab3Controller)
                 .config(function ($stateProvider) {
                     $stateProvider
                         .state('graphics', {

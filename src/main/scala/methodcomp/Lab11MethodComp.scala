@@ -2,7 +2,7 @@ package methodcomp
 
 import java.lang.Math._
 
-object Lab11MethodComp extends App {
+object Lab11MethodComp {
   val E = 0.0001
   val X1 = 0.5
   val X2 = 0.74

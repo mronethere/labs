@@ -2,7 +2,7 @@ package methodcomp
 
 import Math._
 
-object Lab9MethodComp extends App {
+object Lab9MethodComp {
   def F1(x: Double) = log(1 - 1.2 * sin(x)) * cos(3 * x)
   def F2(x: Double) = exp(x)
   val A = 0

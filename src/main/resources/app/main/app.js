@@ -14,8 +14,8 @@
                 .controller('MenuController', ['$state', function ($state) {
                     this.state = $state;
                     var menu = {
-                        methodcomp: 3,
-                        graphics: 2
+                        methodcomp: 6,
+                        graphics: 6
                     };
                     for (var prop in menu) {
                         this[prop] = [];
