@@ -4,9 +4,10 @@
 
     define([
             './controllers/Lab1Controller',
-            './controllers/Lab3Controller'
+            './controllers/Lab3Controller',
+            './controllers/Lab4Controller'
         ],
-        function (Lab1Controller, Lab3Controller) {
+        function (Lab1Controller, Lab3Controller, Lab4Controller) {
 
             var moduleName = 'Graphics';
 
@@ -14,6 +15,7 @@
                 .module(moduleName, [])
                 .controller('Lab1Controller', Lab1Controller)
                 .controller('Lab3Controller', Lab3Controller)
+                .controller('Lab4Controller', Lab4Controller)
                 .config(function ($stateProvider) {
                     $stateProvider
                         .state('graphics', {
